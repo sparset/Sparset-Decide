@@ -27,7 +27,7 @@ for name in ('refund_1','refund_4','support_28','long_context_4'):
 krows=['| '+n+f" | {v['count']:,} | {v['duration_ms']:.2f} | {100*v['duration_ms']/summary['kernel_duration_sum_ms']:.1f}% |"for n,v in sorted(groups.items(),key=lambda x:-x[1]['duration_ms'])]
 brows=['| '+n+f" | {v['median_ms']:.1f} | {v['min_ms']:.1f}–{v['max_ms']:.1f} |"for n,v in p['cases']['support_28']['summary'].items()]
 grows=['| '+mode+f" | {graph['summary'][mode]['wall_ms']:.1f} | {min(x['wall_ms']for x in samples):.1f}–{max(x['wall_ms']for x in samples):.1f} | {graph['summary'][mode]['cuda_event_ms']:.1f} |"for mode,samples in graph['samples'].items()]
-sha=hashlib.sha256((ROOT/'src/jevify/engine.py').read_bytes()).hexdigest()
+sha=hashlib.sha256((ROOT/'src/sparset_decide/engine.py').read_bytes()).hexdigest()
 assert sha=='9e417f108b896c9de7c92e96fe4b9784e765c8a817bcf3665cf54ec84bca7096'
 report='''# Engine profiling: numerical stability and GPU optimization
 

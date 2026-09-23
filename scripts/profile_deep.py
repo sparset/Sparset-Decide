@@ -21,9 +21,9 @@ import torch
 import transformers
 import profile_engine as h
 from profile_backend_diagnostic import routing
-import jevify.engine as engine_module
-from jevify.engine import DecisionEngine
-from jevify.__main__ import load_request
+import sparset_decide.engine as engine_module
+from sparset_decide.engine import DecisionEngine
+from sparset_decide.__main__ import load_request
 from torch.nn.attention import sdpa_kernel, SDPBackend
 
 def save(p,v): h.save(p,v)
@@ -197,7 +197,7 @@ def main():
         "flash_compiled":torch.backends.cuda.is_flash_attention_available(),
         "profiler_activities":[str(x) for x in torch.profiler.supported_activities()],
         "torch_cpu_threads":torch.get_num_threads(),"revision":h.REVISION,
-        "engine_sha256":hashlib.sha256((ROOT/"src/jevify/engine.py").read_bytes()).hexdigest()}
+        "engine_sha256":hashlib.sha256((ROOT/"src/sparset_decide/engine.py").read_bytes()).hexdigest()}
     save(out/"environment.json",environment)
     refund,rq=load_request(ROOT/"examples/decision_engine/refund.json")
     support,sq=load_request(ROOT/"outputs/decision-engine/replica-presets/support_triage.request.json")

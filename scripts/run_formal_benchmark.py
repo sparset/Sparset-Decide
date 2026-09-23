@@ -6,13 +6,13 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'outputs/decision-engine/formal-benchmark-20260918'
 sys.path[:0]=[str(ROOT/'src'),str(ROOT/'outputs/decision-engine/comparison-20260918/replica-source')]
 os.environ.setdefault('HF_HUB_OFFLINE','1');os.environ.setdefault('TOKENIZERS_PARALLELISM','false')
-os.environ.setdefault('CC',str(Path.home()/'.cache/jevify/profiling-20260918/tools/zig-cc'))
+os.environ.setdefault('CC',str(Path.home()/'.cache/sparset-decide/profiling-20260918/tools/zig-cc'))
 import torch,transformers
-from jevify.engine import DecisionEngine
-from jevify.schema import question_from_dict
+from sparset_decide.engine import DecisionEngine
+from sparset_decide.schema import question_from_dict
 from core.schema import StructuredSchema
 import core.engine_torch as hf
-MODEL=str(Path.home()/'.cache/jevify/profiling-20260918/model')
+MODEL=str(Path.home()/'.cache/sparset-decide/profiling-20260918/model')
 DATA=json.loads((OUT/'cases.json').read_text())
 
 def unique_object(pairs):
@@ -35,7 +35,7 @@ def validate(answers,questions):
     return True
 
 def environment():
-    return {'python':platform.python_version(),'platform':platform.platform(),'torch':torch.__version__,'transformers':transformers.__version__,'gpu':torch.cuda.get_device_name(),'cuda':torch.version.cuda,'precision':'FP16 backbone; our selected head FP32','model':'Qwen/Qwen2.5-1.5B-Instruct','model_revision':'989aa7980e4cf806f80c7fef2b1adb7bc71aa306','replica_revision':'2af86848be75847ccb3553b0941cc51d6ef7e4e9','cases_sha256':hashlib.sha256((OUT/'cases.json').read_bytes()).hexdigest(),'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'src/jevify').glob('*.py')}}
+    return {'python':platform.python_version(),'platform':platform.platform(),'torch':torch.__version__,'transformers':transformers.__version__,'gpu':torch.cuda.get_device_name(),'cuda':torch.version.cuda,'precision':'FP16 backbone; our selected head FP32','model':'Qwen/Qwen2.5-1.5B-Instruct','model_revision':'989aa7980e4cf806f80c7fef2b1adb7bc71aa306','replica_revision':'2af86848be75847ccb3553b0941cc51d6ef7e4e9','cases_sha256':hashlib.sha256((OUT/'cases.json').read_bytes()).hexdigest(),'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'src/sparset_decide').glob('*.py')}}
 
 def make_schema(questions):
     return StructuredSchema({k:{'type':'boolean' if q.kind=='noul' else 'enum','description':q.instructions+(' Options: '+json.dumps(dict(q.options),ensure_ascii=False) if q.kind!='noul' else ''),**({} if q.kind=='noul' else {'choices':list(dict(q.options))})} for k,q in questions.items()})

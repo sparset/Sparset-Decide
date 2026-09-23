@@ -3,11 +3,11 @@ import sys,json,time,gc
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'src'))
 import torch
-from jevify.engine import DecisionEngine
-from jevify.__main__ import load_request
-from jevify.benchmark import json_baseline
+from sparset_decide.engine import DecisionEngine
+from sparset_decide.__main__ import load_request
+from sparset_decide.benchmark import json_baseline
 OUT=ROOT/'outputs/decision-engine/comparison-20260918'
-e=DecisionEngine.from_pretrained(str(Path.home()/'.cache/jevify/profiling-20260918/model'),device='cuda',local_files_only=True,efficient_cache=False,max_input_tokens=4096)
+e=DecisionEngine.from_pretrained(str(Path.home()/'.cache/sparset-decide/profiling-20260918/model'),device='cuda',local_files_only=True,efficient_cache=False,max_input_tokens=4096)
 data,qs=load_request(ROOT/'outputs/decision-engine/replica-presets/support_triage.request.json')
 report={'case':'support_28','reason':'Initial suite reached its overall wall-time cap before saving the long generation method. This isolated follow-up checkpoints every result.','methods':{}}
 def save(): (OUT/'long-baselines.json').write_text(json.dumps(report,indent=2,allow_nan=False)+'\n',encoding='utf-8')

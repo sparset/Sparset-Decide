@@ -83,7 +83,7 @@ command so benchmark inputs are explicit.
 
 ```powershell
 $env:HF_HOME = Join-Path (Get-Location) '.cache/decision-engine/huggingface'
-.cache/decision-engine/venv/Scripts/python.exe -m jevify --input examples/decision_engine/refund.json --device cuda --output outputs/decision-engine/refund.json
+.cache/decision-engine/venv/Scripts/python.exe -m sparset-decide --input examples/decision_engine/refund.json --device cuda --output outputs/decision-engine/refund.json
 ```
 
 Use `--revision <HF-commit>` to pin a checkpoint, `--local-files-only` after
@@ -94,8 +94,8 @@ identical prompt and scoring contract. `--attention eager` is a diagnostic fallb
 Programmatic API:
 
 ```python
-from jevify import Choice, Noul
-from jevify.engine import DecisionEngine
+from sparset_decide import Choice, Noul
+from sparset_decide.engine import DecisionEngine
 
 engine = DecisionEngine.from_pretrained(device="cuda")
 result = engine.decide(
@@ -116,7 +116,7 @@ print(result["answers"])
 ```powershell
 $env:PYTHONPATH = 'src'
 python -m unittest discover -s tests -p test_decision_engine.py -v
-.cache/decision-engine/venv/Scripts/python.exe -m jevify.benchmark --input examples/decision_engine/refund.json --device cuda --repeats 5 --include-json --output outputs/decision-engine/benchmark.json
+.cache/decision-engine/venv/Scripts/python.exe -m sparset_decide.benchmark --input examples/decision_engine/refund.json --device cuda --repeats 5 --include-json --output outputs/decision-engine/benchmark.json
 ```
 
 The offline tests use a tiny randomly initialized real Qwen2 transformer. They
@@ -136,7 +136,7 @@ refund example is a smoke test, not a general evaluation dataset.
 
 ```powershell
 python scripts/import_decision_replica_presets.py
-.cache/decision-engine/venv/Scripts/python.exe -m jevify.benchmark --input outputs/decision-engine/replica-presets/support_triage.request.json --device cuda --repeats 5 --output outputs/decision-engine/support-triage.json
+.cache/decision-engine/venv/Scripts/python.exe -m sparset_decide.benchmark --input outputs/decision-engine/replica-presets/support_triage.request.json --device cuda --repeats 5 --output outputs/decision-engine/support-triage.json
 ```
 
 The importer pins the public repository revision, records original file hashes,

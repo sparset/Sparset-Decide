@@ -90,7 +90,7 @@ def main():
 
  lines += ['', 'Original engine: 33/41. Natural-label scoring and blank-context correction were also examined over the full suite; natural-label scoring did not produce a net improvement and was rejected. Rejected candidates remain diagnostics only; they are not production routing rules.','',
 
- '## Reproduce','', '```powershell', '$env:HF_HOME = Join-Path (Get-Location) ".cache/decision-engine/huggingface"', '.\\.cache\\decision-engine\\venv\\Scripts\\python.exe -m jevify --workflow examples/decision_engine/router.workflow.json --interactive --device cuda --local-files-only --answer-bias contextual', '```','',
+ '## Reproduce','', '```powershell', '$env:HF_HOME = Join-Path (Get-Location) ".cache/decision-engine/huggingface"', '.\\.cache\\decision-engine\\venv\\Scripts\\python.exe -m sparset-decide --workflow examples/decision_engine/router.workflow.json --interactive --device cuda --local-files-only --answer-bias contextual', '```','',
 
  'Run from the Inference Engine repository. Remove the answer-bias flag to reproduce the default behavior. `scripts/verify_accuracy_implementation.py` reruns the production checks in the prepared WSL environment. Raw JSONL, data hashes and `original-source/` preserve the audit trail. No commit or push was made.']
 

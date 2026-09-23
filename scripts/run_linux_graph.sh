@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 root="$(cd "$(dirname "$0")/.." && pwd)"
-PROFILE_ENV="$HOME/.cache/jevify/profiling-20260918"
+PROFILE_ENV="$HOME/.cache/sparset-decide/profiling-20260918"
 "$PROFILE_ENV/venv/bin/python" - "$root" "$PROFILE_ENV" <<'PY'
 from pathlib import Path
 import shutil, sys

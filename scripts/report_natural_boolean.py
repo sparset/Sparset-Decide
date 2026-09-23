@@ -75,6 +75,6 @@ if confirm_path.exists():
         lines.append(f"| {mode} | {correct}/16 |")
     lines+=['','Detailed contexts, expected labels, probabilities, and all timing samples are retained in confirmation.json. New-engine responses in this confirmation also undergo the same schema checks.','']
 (OUT/'REPORT.md').write_text('\n'.join(lines),encoding='utf-8')
-manifest={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()for p in sorted((ROOT/'src/jevify').glob('*.py'))}
+manifest={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()for p in sorted((ROOT/'src/sparset_decide').glob('*.py'))}
 (OUT/'source-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
 print(OUT/'REPORT.md')

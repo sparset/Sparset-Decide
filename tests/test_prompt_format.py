@@ -3,9 +3,9 @@ import argparse,json,sys,unittest
 from pathlib import Path
 import torch
 from transformers import Qwen2Config,Qwen2ForCausalLM
-from jevify.engine import DecisionEngine
-from jevify.schema import Choice,Noul,Score
-from jevify.__main__ import add_model_arguments
+from sparset_decide.engine import DecisionEngine
+from sparset_decide.schema import Choice,Noul,Score
+from sparset_decide.__main__ import add_model_arguments
 from test_decision_engine import TinyTokenizer
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from prompt_bias_variants import install,select

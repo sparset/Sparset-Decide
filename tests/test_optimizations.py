@@ -2,8 +2,8 @@
 import unittest
 import torch
 from test_decision_engine import TinyTokenizer
-from jevify.engine import DecisionEngine
-from jevify.schema import Noul, Choice
+from sparset_decide.engine import DecisionEngine
+from sparset_decide.schema import Noul, Choice
 from transformers import Qwen2Config,Qwen2ForCausalLM
 
 
@@ -94,7 +94,7 @@ class GraphTests(unittest.TestCase):
 class KernelTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        try:from jevify import kernels
+        try:from sparset_decide import kernels
         except ImportError as exc:raise unittest.SkipTest(str(exc))
         cls.k=kernels
 

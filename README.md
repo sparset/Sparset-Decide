@@ -16,9 +16,11 @@ Sparset Decide runs classification, yes/no judgments, and rubric scoring with an
 
 ## Watch the comparison
 
-https://github.com/user-attachments/assets/b0e2cb3a-af80-4188-881d-69500620154f
+[![Play the Sparset Decide comparison](docs/media/sparset-decide-comparison.png)](https://github.com/sparset/Sparset-Decide/blob/main/docs/media/sparset-decide-comparison.mp4)
 
-**[Download the video](https://github.com/sparset/Sparset-Decide/raw/refs/heads/main/docs/media/jevify-comparison.mp4)** · 11 seconds · Real-time replay of recorded outputs.
+[Play the comparison video](https://github.com/sparset/Sparset-Decide/blob/main/docs/media/sparset-decide-comparison.mp4).
+
+**[Download the video](https://github.com/sparset/Sparset-Decide/raw/refs/heads/main/docs/media/sparset-decide-comparison.mp4)** · 11 seconds · Real-time replay of recorded outputs.
 
 One successful routing example, using each method's median of five warmed runs. These timings are separate from the 250-case benchmark below. [Recording details](docs/media/README.md).
 
@@ -55,7 +57,7 @@ The 167 ms configuration used optional RMSNorm, SwiGLU, and RoPE kernels; CUDA g
 
 ## Install
 
-The Python package and CLI are named `jevify`.
+Install `sparset-decide`, run the `sparset-decide` command, or import `sparset_decide` in Python.
 
 Requires **Python 3.11+**. NVIDIA CUDA is recommended for speed; CPU execution is also supported.
 
@@ -104,7 +106,7 @@ To use a different rubric, pass `--workflow path/to/workflow.json`. See [dynamic
 From the repository folder:
 
 ```bash
-jevify --interactive
+sparset-decide --interactive
 ```
 
 Once the model is ready, enter a message and finish with `/run` on its own line:
@@ -119,10 +121,10 @@ Press Enter at each question prompt to use the saved instructions. Sparset Decid
 For a single request:
 
 ```bash
-jevify --context "I was charged twice. Please refund the duplicate charge."
+sparset-decide --context "I was charged twice. Please refund the duplicate charge."
 ```
 
-Use `--device cuda` or `--device cpu` to select a device. `python -m jevify` works as an alternative to the `jevify` command.
+Use `--device cuda` or `--device cpu` to select a device. `python -m sparset_decide` works as an alternative to the `sparset-decide` command.
 
 ## Using another model
 
@@ -138,13 +140,13 @@ Sparset Decide supports specific model architectures, **not every LLM or model s
 For a compatible checkpoint, replace `organization/model-name` with its Hugging Face model ID:
 
 ```bash
-jevify --model organization/model-name --interactive
+sparset-decide --model organization/model-name --interactive
 ```
 
 Or load a local Transformers model folder:
 
 ```bash
-jevify --model ./my-model --local-files-only --interactive
+sparset-decide --model ./my-model --local-files-only --interactive
 ```
 
 In Python, pass the same ID or folder to `DecisionEngine.from_pretrained("organization/model-name", device="auto")`.
@@ -156,8 +158,8 @@ Changing `workflow.json` changes the task and allowed answers; it cannot add sup
 ## Use in Python
 
 ```python
-from jevify import Workflow
-from jevify.engine import DecisionEngine
+from sparset_decide import Workflow
+from sparset_decide.engine import DecisionEngine
 
 engine = DecisionEngine.from_pretrained(device="auto")
 workflow = Workflow.load("workflow.json")

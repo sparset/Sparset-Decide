@@ -1,6 +1,6 @@
 import importlib.util,json,unittest
 from pathlib import Path
-from jevify import Choice
+from sparset_decide import Choice
 ROOT=Path(__file__).resolve().parents[1]
 # Historical benchmark integration checks require local, untracked artifacts.
 required = [

@@ -8,8 +8,8 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from jevify import Workflow
-from jevify.__main__ import main
+from sparset_decide import Workflow
+from sparset_decide.__main__ import main
 
 
 class RecordingEngine:
@@ -63,7 +63,7 @@ class WorkflowTests(unittest.TestCase):
             workflow.bind(context="A case", prompt="Ambiguous")
 
     def test_local_only_loader_passes_cached_path_to_tokenizer_and_model(self):
-        from jevify.engine import DecisionEngine
+        from sparset_decide.engine import DecisionEngine
         from unittest.mock import MagicMock
         with tempfile.TemporaryDirectory() as folder:
             model = MagicMock()
@@ -107,7 +107,7 @@ class WorkflowTests(unittest.TestCase):
                                   (["--workflow", str(workflow), "--context", "Inline input", "--prompt", "Route?"], "Inline input"),
                                   (["--input", str(legacy)], "Legacy input")):
                 engine = RecordingEngine()
-                with patch("sys.argv", ["jevify", *args]), patch("sys.stdout", new_callable=io.StringIO), patch("jevify.__main__.build_engine", return_value=engine) as loader:
+                with patch("sys.argv", ["sparset-decide", *args]), patch("sys.stdout", new_callable=io.StringIO), patch("sparset_decide.__main__.build_engine", return_value=engine) as loader:
                     main()
                 loader.assert_called_once()
                 self.assertEqual(engine.calls[0][0], context)
@@ -118,7 +118,7 @@ class WorkflowTests(unittest.TestCase):
             data = copy.deepcopy(self.data)
             data["context"] = "Must not silently use this old context"
             path.write_text(json.dumps(data), encoding="utf-8")
-            with patch("sys.argv", ["jevify", "--workflow", str(path), "--prompt", "Route?"]), patch("sys.stderr", new_callable=io.StringIO), patch("jevify.__main__.build_engine") as loader:
+            with patch("sys.argv", ["sparset-decide", "--workflow", str(path), "--prompt", "Route?"]), patch("sys.stderr", new_callable=io.StringIO), patch("sparset_decide.__main__.build_engine") as loader:
                 with self.assertRaises(SystemExit) as exc:
                     main()
                 self.assertEqual(exc.exception.code, 2)
@@ -133,7 +133,7 @@ class WorkflowTests(unittest.TestCase):
             engine = RecordingEngine()
             entries = ["First line", "Second line", "/run", "New instruction",
                        "Next context", "/run", "", "/quit"]
-            with patch("sys.argv", ["jevify", "--workflow", str(path), "--interactive"]), patch("builtins.input", side_effect=entries), patch("sys.stdout", new_callable=io.StringIO), patch("jevify.__main__.build_engine", return_value=engine) as loader:
+            with patch("sys.argv", ["sparset-decide", "--workflow", str(path), "--interactive"]), patch("builtins.input", side_effect=entries), patch("sys.stdout", new_callable=io.StringIO), patch("sparset_decide.__main__.build_engine", return_value=engine) as loader:
                 main()
             loader.assert_called_once()
             self.assertEqual(engine.warmups, 1)

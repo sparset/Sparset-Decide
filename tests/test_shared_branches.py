@@ -2,8 +2,8 @@ import unittest
 import importlib.util
 import torch
 from transformers import Qwen2Config,Qwen2ForCausalLM
-from jevify.engine import DecisionEngine
-from jevify.schema import Choice,Noul
+from sparset_decide.engine import DecisionEngine
+from sparset_decide.schema import Choice,Noul
 from test_decision_engine import TinyTokenizer
 
 class LengthTests(unittest.TestCase):
@@ -43,7 +43,7 @@ class SharedTests(unittest.TestCase):
         finally:e.clear_optimization_cache();other.clear_optimization_cache()
 
     def test_attention_against_float32_reference_ragged_gqa_and_short_tiles(self):
-        from jevify.shared_attention import attention
+        from sparset_decide.shared_attention import attention
         import torch.nn.functional as F
         torch.manual_seed(9)
         with torch.inference_mode():
@@ -109,7 +109,7 @@ class SharedTests(unittest.TestCase):
         self.assertIsNone(e._fusion.branch_state)
 
     def test_fused_residual_norm_preserves_rounded_sum(self):
-        from jevify.kernels import residual_rmsnorm
+        from sparset_decide.kernels import residual_rmsnorm
         with torch.inference_mode():
             for dtype in (torch.float16,torch.bfloat16,torch.float32):
                 x=torch.randn(13,1536,device='cuda',dtype=dtype);r=torch.randn_like(x);w=torch.randn(1536,device='cuda',dtype=dtype)

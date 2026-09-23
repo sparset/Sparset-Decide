@@ -19,6 +19,6 @@ def main():
         row={"case_id":c["id"],"suite":suite,"group":c["group"],"expected":c["expected"],"correct":all(answers[k]["choice"]==v for k,v in c["expected"].items()),"wall_ms":(time.perf_counter()-start)*1000,"max_probability_delta_from_eager":delta,"choice_changed_from_eager":any(a["choice"]!=ref[k]["choice"] for k,a in answers.items()),"result":{"status":"valid","answers":answers,"native":native}}
         append(OUT/"production.jsonl",row)
         if (i+1)%25==0:print("PRODUCTION",i+1,"/",len(allcases),flush=True)
-    (OUT/"production-source-manifest.json").write_text(json.dumps({str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/"src/jevify").glob("*.py")},indent=2),encoding="utf-8")
+    (OUT/"production-source-manifest.json").write_text(json.dumps({str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/"src/sparset_decide").glob("*.py")},indent=2),encoding="utf-8")
     print("COMPLETE",flush=True)
 if __name__=="__main__":main()

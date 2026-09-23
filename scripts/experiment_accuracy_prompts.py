@@ -2,7 +2,7 @@ import json,sys,time,types
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 from run_formal_benchmark import DecisionEngine,MODEL,DATA,question_from_dict,torch
-from jevify.engine import SYSTEM
+from sparset_decide.engine import SYSTEM
 OUT=ROOT/'outputs/decision-engine/accuracy-diagnosis-20260918'
 def prepare_variant(self,context,questions):
  seq=[]
