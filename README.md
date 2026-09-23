@@ -1,10 +1,10 @@
-<p align="center"><img src="docs/media/jevify-banner.png" alt="Sparset Decide: faster decision engines with structured JSON. Results from the local 250-case benchmark below."></p>
+<p align="center"><img src="docs/media/sparset-decide-banner.png" alt="Sparset Decide: faster decision engines with structured JSON. Results from the local 250-case benchmark below."></p>
 
 <h1 align="center">Sparset Decide</h1>
 
 <p align="center">
   <a href="https://huggingface.co/harshatheg/Qwen-2.5-1B-RLCD">
-    <img src="https://img.shields.io/badge/Inspired%20by-harshatheg%2FQwen--2.5--1B--RLCD-FFD21E?logo=huggingface&amp;logoColor=000&amp;style=flat-square" alt="Inspired by Harsha Gundala's Qwen-2.5-1B-RLCD on Hugging Face">
+    <img src="https://img.shields.io/badge/Inspired%20by-harshatheg%2FQwen--2.5--1B--RLCD-3E61EB?logo=huggingface&amp;logoColor=white&amp;labelColor=090909&amp;style=flat-square" alt="Inspired by Harsha Gundala's Qwen-2.5-1B-RLCD on Hugging Face">
   </a>
 </p>
 
