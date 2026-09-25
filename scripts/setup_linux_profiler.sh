@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-PROFILE_ENV="$HOME/.cache/sparset-decide/profiling-20260918"
+PROFILE_ENV="$HOME/.cache/subset/profiling-20260918"
 mkdir -p "$PROFILE_ENV/tools"
 if [ ! -x "$PROFILE_ENV/tools/uv" ]; then
   python3 - "$PROFILE_ENV" <<'PY'

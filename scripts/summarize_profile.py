@@ -7,7 +7,7 @@ OUT = ROOT / "outputs/decision-engine/profiling-20260918"
 r = json.loads((OUT / "summary.json").read_text())
 d = json.loads((OUT / "backend-diagnostic/summary.json").read_text())
 assert len(r["cases"]) == 4 and len(d["cases"]) == 4 and d["routing_restored"]
-unchanged = hashlib.sha256((ROOT / "src/sparset_decide/engine.py").read_bytes()).hexdigest() == r["environment"]["engine_sha256"]
+unchanged = hashlib.sha256((ROOT / "src/subset/engine.py").read_bytes()).hexdigest() == r["environment"]["engine_sha256"]
 assert unchanged
 names = {"refund_1": "1 question", "refund_4": "4 refund questions", "support_28": "28 support questions", "long_context_4": "4 questions, longer context"}
 lines = [

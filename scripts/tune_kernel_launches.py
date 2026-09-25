@@ -2,9 +2,9 @@
 import sys,os,json,statistics
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'src'))
-os.environ.setdefault('CC',str(Path.home()/'.cache/sparset-decide/profiling-20260918/tools/zig-cc'))
+os.environ.setdefault('CC',str(Path.home()/'.cache/subset/profiling-20260918/tools/zig-cc'))
 import torch,triton
-from sparset_decide import kernels as k
+from subset import kernels as k
 OUT=ROOT/'outputs/decision-engine/optimization-20260918'
 @torch.inference_mode()
 def bench(fn):

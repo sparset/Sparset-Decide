@@ -94,8 +94,8 @@ def main():
     args=p.parse_args(); args.output.mkdir(parents=True,exist_ok=False)
     try:
         if args.model:
-            from sparset_decide.engine import DecisionEngine
-            from sparset_decide.__main__ import load_request
+            from subset.engine import DecisionEngine
+            from subset.__main__ import load_request
             engine=DecisionEngine.from_pretrained(args.model,device="cuda",local_files_only=True)
             data,questions=load_request(ROOT/"examples/decision_engine/refund.json")
             for _ in range(3): engine.decide(data["context"],questions)

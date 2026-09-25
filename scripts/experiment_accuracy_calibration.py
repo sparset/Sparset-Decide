@@ -2,8 +2,8 @@ import sys,json,types,math
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 from run_formal_benchmark import DecisionEngine,MODEL,DATA,question_from_dict,torch
-from sparset_decide.engine import SYSTEM
-from sparset_decide.schema import Choice,Noul
+from subset.engine import SYSTEM
+from subset.schema import Choice,Noul
 OUT=ROOT/'outputs/decision-engine/accuracy-diagnosis-20260918'
 def message(e,context,q):
  if q.kind=='noul':end='\nReturn only true or false.'

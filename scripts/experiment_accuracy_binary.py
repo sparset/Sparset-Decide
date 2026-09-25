@@ -2,7 +2,7 @@ import sys,json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 from run_formal_benchmark import DecisionEngine,MODEL,DATA,question_from_dict
-from sparset_decide.schema import Noul
+from subset.schema import Noul
 OUT=ROOT/'outputs/decision-engine/accuracy-diagnosis-20260918'
 if __name__=='__main__':
  chosen=set(json.loads((OUT/'development-case-ids.json').read_text()));e=DecisionEngine.from_pretrained(MODEL,device='cuda',local_files_only=True,shared_attention='off');e.warmup()

@@ -3,8 +3,8 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'src'),str(ROOT/'outputs/decision-engine/comparison-20260918/replica-source')]
 os.environ.setdefault('HF_HOME',str(ROOT/'.cache/decision-engine/huggingface'));os.environ.setdefault('HF_HUB_OFFLINE','1')
 import torch
-from sparset_decide import Workflow,Choice
-from sparset_decide.engine import DecisionEngine
+from subset import Workflow,Choice
+from subset.engine import DecisionEngine
 from core.schema import StructuredSchema
 import core.engine_torch as hf
 OUT=ROOT/'outputs/decision-engine/router-diagnosis-20260918'

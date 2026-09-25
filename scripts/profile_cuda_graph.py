@@ -5,8 +5,8 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"src"))
 import profile_engine as h
 import torch
-from sparset_decide.engine import DecisionEngine
-from sparset_decide.__main__ import load_request
+from subset.engine import DecisionEngine
+from subset.__main__ import load_request
 
 def main():
     p=argparse.ArgumentParser()

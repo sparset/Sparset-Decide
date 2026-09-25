@@ -3,9 +3,9 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'src'))
 os.environ.setdefault('HF_HOME',str(ROOT/'.cache/decision-engine/huggingface'));os.environ.setdefault('HF_HUB_OFFLINE','1')
 import torch
-from sparset_decide import Choice,Noul,Score
-from sparset_decide.engine import DecisionEngine,SYSTEM
-from sparset_decide.__main__ import load_request
+from subset import Choice,Noul,Score
+from subset.engine import DecisionEngine,SYSTEM
+from subset.__main__ import load_request
 OUT=ROOT/'outputs/decision-engine/router-diagnosis-20260918'
 previous=json.loads((OUT/'windows.json').read_text())
 class Readable(DecisionEngine):

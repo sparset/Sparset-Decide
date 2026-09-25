@@ -107,9 +107,9 @@ class DecisionEngine:
         if self.fused_kernels and self.device.type != "cuda":
             raise ValueError("Custom Triton fusion requires a CUDA device")
         from .fusion import FusionManager
-        if not hasattr(model, "_sparset_decide_fusion_manager"):
-            model._sparset_decide_fusion_manager = FusionManager(model)
-        self._fusion = model._sparset_decide_fusion_manager
+        if not hasattr(model, "_subset_fusion_manager"):
+            model._subset_fusion_manager = FusionManager(model)
+        self._fusion = model._subset_fusion_manager
         self._lock = self._fusion.lock
         self.cuda_graphs = cuda_graphs
         from .cuda_graphs import GraphRunner

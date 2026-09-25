@@ -4,11 +4,11 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'outputs/decision-engine/comparison-20260918'
 sys.path[:0]=[str(ROOT/'src'),str(OUT/'replica-source')]
 os.environ.setdefault('HF_HUB_OFFLINE','1');os.environ.setdefault('TRANSFORMERS_OFFLINE','1')
-os.environ.setdefault('CC',str(Path.home()/'.cache/sparset-decide/profiling-20260918/tools/zig-cc'))
+os.environ.setdefault('CC',str(Path.home()/'.cache/subset/profiling-20260918/tools/zig-cc'))
 import torch,transformers
-from sparset_decide.engine import DecisionEngine
-from sparset_decide.__main__ import load_request
-from sparset_decide.benchmark import json_baseline
+from subset.engine import DecisionEngine
+from subset.__main__ import load_request
+from subset.benchmark import json_baseline
 from core.schema import StructuredSchema
 import core.engine_torch as hf
 REVISION='989aa7980e4cf806f80c7fef2b1adb7bc71aa306'
@@ -24,7 +24,7 @@ def own_labels(result):
 def main():
     import argparse
     p=argparse.ArgumentParser();p.add_argument('--repeats',type=int,default=3);a=p.parse_args()
-    model=str(Path.home()/'.cache/sparset-decide/profiling-20260918/model')
+    model=str(Path.home()/'.cache/subset/profiling-20260918/model')
     e=DecisionEngine.from_pretrained(model,device='cuda',local_files_only=True,max_input_tokens=4096,
         cuda_graphs=True,fused_kernels=('rmsnorm','swiglu','rope'))
     plain=DecisionEngine(e.model,e.tokenizer,efficient_cache=False,max_input_tokens=4096)

@@ -4,7 +4,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
 from run_formal_benchmark import DecisionEngine,MODEL,OUT,DATA,question_from_dict,torch
 DEST=ROOT/'outputs/decision-engine/accuracy-diagnosis-20260918';DEST.mkdir(exist_ok=True)
-for p in (ROOT/'src/sparset_decide').glob('*.py'):
+for p in (ROOT/'src/subset').glob('*.py'):
  target=DEST/'original-source'/p.name;target.parent.mkdir(exist_ok=True)
  if not target.exists():shutil.copy2(p,target)
 rows=[json.loads(x) for x in (OUT/'quality.jsonl').read_text().splitlines()]

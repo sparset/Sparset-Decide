@@ -7,7 +7,7 @@ The model remains a dense Qwen2/Qwen3/Llama language model. These options change
 For repeated requests, keep one DecisionEngine instance alive:
 
 ```python
-from sparset_decide.engine import DecisionEngine
+from subset.engine import DecisionEngine
 
 engine = DecisionEngine.from_pretrained(
     "Qwen/Qwen2.5-1.5B-Instruct",
@@ -22,7 +22,7 @@ engine = DecisionEngine.from_pretrained(
 For the CLI:
 
 ```bash
-sparset-decide --device cuda --cuda-graphs --fused-kernels rmsnorm swiglu rope --workflow workflow.json --interactive
+subset --device cuda --cuda-graphs --fused-kernels rmsnorm swiglu rope --workflow workflow.json --interactive
 ```
 
 A one-shot CLI invocation pays graph capture and kernel compilation overhead without reusing the graph on later requests. Warm latency measurements apply to a persistent engine, not process startup. Omit --cuda-graphs for one-shot use. Each fusion can be enabled separately. Omit --fused-kernels to use standard PyTorch kernels.
@@ -33,7 +33,7 @@ Cache optimizations use the existing inference dependencies and fall back to dee
 
 Custom kernels currently require Linux/WSL, CUDA, Triton 3.2.0, Transformers 5.5.4 and dense Qwen2 with SiLU activation. Install the fusion extra with an appropriate CUDA PyTorch build. Triton also needs a working C compiler and Python development headers for its launch helper. Unsupported model/version combinations fail explicitly when fusion is requested; these adapters do not silently patch a different architecture. The current Windows environment can use the ordinary engine without installing Triton.
 
-The local benchmark environment is under ~/.cache/sparset-decide/profiling-20260918. scripts/run_optimization.sh sets its isolated compiler and launches benchmarks. This launcher is a convenience for this workstation, not a portable installer.
+The local benchmark environment is under ~/.cache/subset/profiling-20260918. scripts/run_optimization.sh sets its isolated compiler and launches benchmarks. This launcher is a convenience for this workstation, not a portable installer.
 
 ## What is implemented
 

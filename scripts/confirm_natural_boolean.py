@@ -1,8 +1,8 @@
 """Alternating large-workload timing check and explicit positive/negative boolean controls."""
 from compare_natural_boolean import *
-from sparset_decide.schema import Noul
+from subset.schema import Noul
 
-e=DecisionEngine.from_pretrained(str(Path.home()/'.cache/sparset-decide/profiling-20260918/model'),device='cuda',local_files_only=True,max_input_tokens=4096,cuda_graphs=True,fused_kernels=('rmsnorm','swiglu','rope'))
+e=DecisionEngine.from_pretrained(str(Path.home()/'.cache/subset/profiling-20260918/model'),device='cuda',local_files_only=True,max_input_tokens=4096,cuda_graphs=True,fused_kernels=('rmsnorm','swiglu','rope'))
 old=OldDecisionEngine(e.model,e.tokenizer,max_input_tokens=4096,cuda_graphs=True,fused_kernels=('rmsnorm','swiglu','rope'))
 hf._torch_model=e.model;hf._torch_tokenizer=e.tokenizer;hf._torch_device='cuda'
 data,questions=load_request(ROOT/'outputs/decision-engine/replica-presets/support_triage.request.json')

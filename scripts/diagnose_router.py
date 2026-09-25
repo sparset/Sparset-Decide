@@ -5,10 +5,10 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT/'src'),str(ROOT/'outputs/decision-engine/comparison-20260918/replica-source')]
 os.environ.setdefault('HF_HOME',str(ROOT/'.cache/decision-engine/huggingface'))
 os.environ.setdefault('HF_HUB_OFFLINE','1')
-os.environ.setdefault('CC',str(Path.home()/'.cache/sparset-decide/profiling-20260918/tools/zig-cc'))
+os.environ.setdefault('CC',str(Path.home()/'.cache/subset/profiling-20260918/tools/zig-cc'))
 import torch, transformers
-from sparset_decide import Choice, Workflow
-from sparset_decide.engine import DecisionEngine, SYSTEM
+from subset import Choice, Workflow
+from subset.engine import DecisionEngine, SYSTEM
 from core.schema import StructuredSchema
 import core.engine_torch as hf
 
@@ -29,7 +29,7 @@ def main():
     def measured(fn):
         torch.cuda.synchronize();t=time.perf_counter();v=fn();torch.cuda.synchronize()
         return {'wall_ms':(time.perf_counter()-t)*1000,'result':v}
-    model='Qwen/Qwen2.5-1.5B-Instruct' if tag=='windows' else str(Path.home()/'.cache/sparset-decide/profiling-20260918/model')
+    model='Qwen/Qwen2.5-1.5B-Instruct' if tag=='windows' else str(Path.home()/'.cache/subset/profiling-20260918/model')
     print('Loading',tag,flush=True)
     t=time.perf_counter();e=DecisionEngine.from_pretrained(model,device='cuda',local_files_only=True,prompt_format='json')
     result['load_seconds']=time.perf_counter()-t

@@ -22,9 +22,9 @@ os.environ.setdefault("HF_HUB_OFFLINE", "1")
 os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
 import torch
 import transformers
-import sparset_decide.engine as engine_module
-from sparset_decide.engine import DecisionEngine
-from sparset_decide.__main__ import load_request
+import subset.engine as engine_module
+from subset.engine import DecisionEngine
+from subset.__main__ import load_request
 from torch.profiler import profile, record_function, ProfilerActivity
 from torch.nn.attention import sdpa_kernel, SDPBackend
 

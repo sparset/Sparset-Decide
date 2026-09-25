@@ -2,11 +2,11 @@
 import os,sys,json,time,gc,statistics,hashlib
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'src'))
-os.environ.setdefault('CC',str(Path.home()/'.cache/sparset-decide/profiling-20260918/tools/zig-cc'))
+os.environ.setdefault('CC',str(Path.home()/'.cache/subset/profiling-20260918/tools/zig-cc'))
 import torch,transformers
-from sparset_decide.engine import DecisionEngine
-from sparset_decide.schema import Noul
-from sparset_decide.__main__ import load_request
+from subset.engine import DecisionEngine
+from subset.schema import Noul
+from subset.__main__ import load_request
 OUT=ROOT/'outputs/decision-engine/branch-optimization-20260918'
 def compare(a,b):
     diffs=[];changed=[]
@@ -24,7 +24,7 @@ def validate(v,qs):
 def main():
     import argparse
     p=argparse.ArgumentParser();p.add_argument('--repeats',type=int,default=3);p.add_argument('--cases',nargs='*');a=p.parse_args()
-    e=DecisionEngine.from_pretrained(str(Path.home()/'.cache/sparset-decide/profiling-20260918/model'),device='cuda',local_files_only=True,max_input_tokens=4096)
+    e=DecisionEngine.from_pretrained(str(Path.home()/'.cache/subset/profiling-20260918/model'),device='cuda',local_files_only=True,max_input_tokens=4096)
     fusion=('rmsnorm','swiglu','rope')
     settings={'reference':{},'shared':{'shared_attention':'on'},'short':{'shared_attention':'on','specialize_short':True},
         'residual':{'fused_kernels':fusion+('residual_norm',)},'length':{'length_aware':True},

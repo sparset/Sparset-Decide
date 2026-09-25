@@ -3,7 +3,7 @@ import os,sys,unittest,json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT/'src'),str(ROOT/'tests')]
-runtime=Path.home()/'.cache/sparset-decide/profiling-20260918'
+runtime=Path.home()/'.cache/subset/profiling-20260918'
 if (runtime/'tools/zig-cc').exists():os.environ.setdefault('CC',str(runtime/'tools/zig-cc'))
 import torch
 torch.set_num_threads(2)

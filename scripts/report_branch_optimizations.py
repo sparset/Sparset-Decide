@@ -61,7 +61,7 @@ lines+=['','Microbenchmarks used CUDA-event timing around replay of graphs conta
 '- candidates-before-stream-fix.json: interrupted diagnostic run, excluded from accepted timing claims because repeated capture streams accumulated workspaces.',
 '- kernel-benchmarks-dispatch-noisy.json: early host-dispatch-sensitive experiment, excluded from kernel claims.','']
 (OUT/'REPORT.md').write_text('\n'.join(lines),encoding='utf-8')
-manifest={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()for p in sorted((ROOT/'src/sparset_decide').glob('*.py'))}
+manifest={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()for p in sorted((ROOT/'src/subset').glob('*.py'))}
 (OUT/'source-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
 print(json.dumps({'max_probability_delta':max_delta,'changed_context_delta':changed_delta,'changed_labels':changes,'changed_context_decisions':changed_context_decisions,'responses':responses,'fields':fields,'tests':tests['tests_run']}))
 print(OUT/'REPORT.md')

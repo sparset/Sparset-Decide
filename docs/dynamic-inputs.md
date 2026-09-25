@@ -11,7 +11,7 @@ From the project directory in PowerShell, using the installed local environment:
 
 ```powershell
 $env:HF_HOME = Join-Path (Get-Location) '.cache/decision-engine/huggingface'
-.\.cache\decision-engine\venv\Scripts\python.exe -m sparset-decide --interactive --device cuda --local-files-only
+.\.cache\decision-engine\venv\Scripts\python.exe -m subset --interactive --device cuda --local-files-only
 ```
 
 The model loads once, then runs a synthetic initialization call before displaying
@@ -25,7 +25,7 @@ each new request starts fresh. Paste the complete history you want evaluated.
 For the routing rubric (which deliberately has no fixed question):
 
 ```powershell
-.\.cache\decision-engine\venv\Scripts\python.exe -m sparset-decide --workflow examples/decision_engine/router.workflow.json --interactive --device cuda --local-files-only
+.\.cache\decision-engine\venv\Scripts\python.exe -m subset --workflow examples/decision_engine/router.workflow.json --interactive --device cuda --local-files-only
 ```
 
 Use a prompt such as `Which model should handle the next response?`. The example
@@ -36,7 +36,7 @@ model invocation, and the sample is not a validated routing policy.
 ## One request from the command line
 
 ```powershell
-.\.cache\decision-engine\venv\Scripts\python.exe -m sparset-decide --workflow examples/decision_engine/router.workflow.json --prompt "Which model should answer this?" --context "Write and debug a Python CSV parser." --device cuda --local-files-only
+.\.cache\decision-engine\venv\Scripts\python.exe -m subset --workflow examples/decision_engine/router.workflow.json --prompt "Which model should answer this?" --context "Write and debug a Python CSV parser." --device cuda --local-files-only
 ```
 
 Use `--context-file conversation.txt` for a multiline UTF-8 text file. Each CLI
@@ -78,8 +78,8 @@ infer extra branches from free-form prose.
 ## Use in an application, with one resident model
 
 ```python
-from sparset_decide import Workflow
-from sparset_decide.engine import DecisionEngine
+from subset import Workflow
+from subset.engine import DecisionEngine
 
 # Once at application startup. Use your existing engine settings here.
 engine = DecisionEngine.from_pretrained(device="cuda", local_files_only=True)

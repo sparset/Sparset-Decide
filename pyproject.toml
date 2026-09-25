@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "sparset-decide"
+name = "subset"
 version = "0.1.0"
 description = "Experimental parallel inference for typed decisions with a shared context"
 readme = "README.md"
@@ -15,9 +15,9 @@ inference = ["torch>=2.6,<3.0", "transformers>=4.51,<6.0"]
 fusion = ["torch==2.6.0", "transformers==5.5.4", "triton==3.2.0; sys_platform == 'linux'"]
 
 [project.scripts]
-sparset-decide = "sparset_decide.__main__:main"
+subset = "subset.__main__:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["sparset_decide*"]
+include = ["subset*"]
 namespaces = false

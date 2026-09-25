@@ -3,7 +3,7 @@ from benchmark_branch_candidates import *
 import statistics
 
 def main():
-    model=str(Path.home()/'.cache/sparset-decide/profiling-20260918/model')
+    model=str(Path.home()/'.cache/subset/profiling-20260918/model')
     base=DecisionEngine.from_pretrained(model,device='cuda',local_files_only=True,max_input_tokens=4096)
     common={'max_input_tokens':4096,'cuda_graphs':True,'fused_kernels':('rmsnorm','swiglu','rope')}
     engines={

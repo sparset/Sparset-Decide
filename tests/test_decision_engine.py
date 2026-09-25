@@ -2,7 +2,7 @@
 
 import unittest
 
-from sparset_decide.schema import Choice, Noul, Score, question_from_dict
+from subset.schema import Choice, Noul, Score, question_from_dict
 
 
 class SchemaTests(unittest.TestCase):
@@ -43,7 +43,7 @@ class TransformerParityTests(unittest.TestCase):
             from transformers import Qwen2Config, Qwen2ForCausalLM
         except ImportError as exc:
             raise unittest.SkipTest(f"Install the inference extra for transformer tests: {exc}")
-        from sparset_decide.engine import DecisionEngine
+        from subset.engine import DecisionEngine
 
         torch.set_num_threads(2)
         torch.manual_seed(19)
@@ -120,7 +120,7 @@ class TransformerParityTests(unittest.TestCase):
             torch.testing.assert_close(letters[0], full[0, list(self.engine._option_token_ids[:2])].softmax(-1))
 
     def test_boolean_token_mapping_and_unsupported_tokenizer(self):
-        from sparset_decide.engine import DecisionEngine
+        from subset.engine import DecisionEngine
         q = {"refund": Noul("Refund requested?")}
         result = self.engine.decide(self.context, q)
         self.assertEqual(result["metadata"]["answer_encoding"], {"refund": "false_true"})
@@ -139,7 +139,7 @@ class TransformerParityTests(unittest.TestCase):
             self.engine.decide("x" * 3000, self.questions)
 
     def test_readable_prompt_preserves_option_boundaries_and_boolean_format(self):
-        from sparset_decide.engine import DecisionEngine
+        from subset.engine import DecisionEngine
         class RecordingTokenizer(TinyTokenizer):
             messages = None
             def apply_chat_template(self, messages, **kwargs):
@@ -156,7 +156,7 @@ class TransformerParityTests(unittest.TestCase):
         self.assertEqual(engine.prepare("context", q), original.prepare("context", q))
 
     def test_warmup_restores_graph_setting_without_recording_synthetic_graph(self):
-        from sparset_decide.engine import DecisionEngine
+        from subset.engine import DecisionEngine
         engine = DecisionEngine(self.model, TinyTokenizer(), cuda_graphs=True)
         metadata = engine.warmup()
         self.assertTrue(engine.cuda_graphs)
@@ -164,7 +164,7 @@ class TransformerParityTests(unittest.TestCase):
         self.assertFalse(metadata["optimizations"]["cuda_graphs"])
 
     def test_dynamic_workflow_matches_direct_engine_with_changed_requests(self):
-        from sparset_decide import Workflow
+        from subset import Workflow
         workflow = Workflow({"questions": {"refund": {"type": "noul"}}})
         for context, prompt in ((self.context, "Refund requested?"),
                                 ("New conversation without a refund", "Does this ask for a human?")):

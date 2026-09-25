@@ -1,6 +1,6 @@
-<p align="center"><img src="docs/media/sparset-decide-banner.png" alt="Sparset Decide: faster decision engines with structured JSON. Results from the local 250-case benchmark below."></p>
+<p align="center"><img src="docs/media/subset-banner.png" alt="Subset: faster decision engines with structured JSON. Results from the local 250-case benchmark below."></p>
 
-<h1 align="center">Sparset Decide</h1>
+<h1 align="center">Subset</h1>
 
 <p align="center">
   <a href="https://huggingface.co/harshatheg/Qwen-2.5-1B-RLCD">
@@ -10,17 +10,17 @@
 
 **26.1× faster than standard Qwen JSON generation, 2.4× faster than the HF implementation, and 100% JSON schema validity** in our [local 250-case development benchmark](#local-benchmark). Speedups compare median request latency on the same laptop and checkpoint; they are not universal performance guarantees.
 
-Sparset Decide runs classification, yes/no judgments, and rubric scoring with an existing LLM. It reuses shared context, evaluates independent questions in batches, and constructs JSON directly from model scores. Optional GPU kernels reduce execution overhead. The default model is **Qwen2.5-1.5B-Instruct**; no fine-tuning is required.
+Subset runs classification, yes/no judgments, and rubric scoring with an existing LLM. It reuses shared context, evaluates independent questions in batches, and constructs JSON directly from model scores. Optional GPU kernels reduce execution overhead. The default model is **Qwen2.5-1.5B-Instruct**; no fine-tuning is required.
 
-> **Experimental project:** Sparset Decide is not affiliated with TypeSafe AI and is not intended to replace or compete with Jev. It explores a different approach: optimizing inference around an existing pretrained LLM. TypeSafe describes Jev as a purpose-built model with a new architecture and Reinforcement Learning for Calibrated Decisions (RLCD). Sparset Decide does not reproduce that architecture or training method, and its probabilities are uncalibrated. See [TypeSafe's announcement](https://typesafe.ai/blog/introducing-system-one-models-and-jev).
+> **Experimental project:** Subset is not affiliated with TypeSafe AI and is not intended to replace or compete with Jev. It explores a different approach: optimizing inference around an existing pretrained LLM. TypeSafe describes Jev as a purpose-built model with a new architecture and Reinforcement Learning for Calibrated Decisions (RLCD). Subset does not reproduce that architecture or training method, and its probabilities are uncalibrated. See [TypeSafe's announcement](https://typesafe.ai/blog/introducing-system-one-models-and-jev).
 
 ## Watch the comparison
 
-[![Play the Sparset Decide comparison](docs/media/sparset-decide-comparison.png)](https://github.com/sparset/Sparset-Decide/blob/main/docs/media/sparset-decide-comparison.mp4)
+[![Play the Subset comparison](docs/media/subset-comparison.png)](https://github.com/sparset/subset/blob/main/docs/media/subset-comparison.mp4)
 
-[Play the comparison video](https://github.com/sparset/Sparset-Decide/blob/main/docs/media/sparset-decide-comparison.mp4).
+[Play the comparison video](https://github.com/sparset/subset/blob/main/docs/media/subset-comparison.mp4).
 
-**[Download the video](https://github.com/sparset/Sparset-Decide/raw/refs/heads/main/docs/media/sparset-decide-comparison.mp4)** · 11 seconds · Real-time replay of recorded outputs.
+**[Download the video](https://github.com/sparset/subset/raw/refs/heads/main/docs/media/subset-comparison.mp4)** · 11 seconds · Real-time replay of recorded outputs.
 
 One successful routing example, using each method's median of five warmed runs. These timings are separate from the 250-case benchmark below. [Recording details](docs/media/README.md).
 
@@ -46,8 +46,8 @@ The 250-case test below uses one decision per request, so its gains do not demon
 |---|---:|---:|---:|
 | Standard Qwen, unconstrained JSON generation | 9.2% | 14% | 4,359 ms |
 | Qwen-2.5-1B-RLCD, PyTorch/CUDA implementation | 74.8% | 100% | 408 ms |
-| Sparset Decide, CUDA graphs enabled | 90.0% | 100% | 951 ms |
-| **Sparset Decide, CUDA graphs disabled** | **90.0%** | **100%** | **167 ms** |
+| Subset, CUDA graphs enabled | 90.0% | 100% | 951 ms |
+| **Subset, CUDA graphs disabled** | **90.0%** | **100%** | **167 ms** |
 
 - **Correct + schema-valid** requires both the right choice and valid complete JSON, including probabilities for every option. The standard model's 9.2% is not its standalone classification accuracy; formatting failures count too.
 - These are **development-set results**: some cases were used during prompt tuning. One timed request per case, with methods measured in separate blocks. The 100% schema result applies to these tested cases; valid structure does not guarantee correct decisions.
@@ -57,13 +57,13 @@ The 167 ms configuration used optional RMSNorm, SwiGLU, and RoPE kernels; CUDA g
 
 ## Install
 
-Install `sparset-decide`, run the `sparset-decide` command, or import `sparset_decide` in Python.
+Install `subset`, run the `subset` command, or import `subset` in Python.
 
 Requires **Python 3.11+**. NVIDIA CUDA is recommended for speed; CPU execution is also supported.
 
 ```bash
-git clone https://github.com/sparset/Sparset-Decide.git
-cd Sparset-Decide
+git clone https://github.com/sparset/subset.git
+cd subset
 python -m venv .venv
 ```
 
@@ -72,7 +72,7 @@ Activate the environment:
 - **Windows PowerShell:** `.\.venv\Scripts\Activate.ps1`
 - **Linux / macOS:** `source .venv/bin/activate`
 
-For NVIDIA GPUs, install a compatible [CUDA-enabled PyTorch build](https://pytorch.org/get-started/locally/) first. Then install Sparset Decide:
+For NVIDIA GPUs, install a compatible [CUDA-enabled PyTorch build](https://pytorch.org/get-started/locally/) first. Then install Subset:
 
 ```bash
 python -m pip install -e ".[inference]"
@@ -80,7 +80,7 @@ python -m pip install -e ".[inference]"
 
 ## Base model and downloads
 
-The default is **`Qwen/Qwen2.5-1.5B-Instruct`**, the existing instruction-tuned Qwen model used in our benchmarks. Sparset Decide adds an inference engine around it; it does not ship newly trained model weights. In the benchmark, "standard Qwen" means this same checkpoint generating JSON normally.
+The default is **`Qwen/Qwen2.5-1.5B-Instruct`**, the existing instruction-tuned Qwen model used in our benchmarks. Subset adds an inference engine around it; it does not ship newly trained model weights. In the benchmark, "standard Qwen" means this same checkpoint generating JSON normally.
 
 **The Qwen model is not uploaded to this GitHub repository.** On first use, Transformers downloads its weights and tokenizer from Hugging Face (roughly 3 GB) and saves them in the local Hugging Face cache. Later runs reuse that download. Inference runs on your machine, without a hosted model endpoint.
 
@@ -106,7 +106,7 @@ To use a different rubric, pass `--workflow path/to/workflow.json`. See [dynamic
 From the repository folder:
 
 ```bash
-sparset-decide --interactive
+subset --interactive
 ```
 
 Once the model is ready, enter a message and finish with `/run` on its own line:
@@ -116,19 +116,19 @@ I was charged twice. Please refund the duplicate charge.
 /run
 ```
 
-Press Enter at each question prompt to use the saved instructions. Sparset Decide prints JSON, then waits for another request. Type `/quit` to exit.
+Press Enter at each question prompt to use the saved instructions. Subset prints JSON, then waits for another request. Type `/quit` to exit.
 
 For a single request:
 
 ```bash
-sparset-decide --context "I was charged twice. Please refund the duplicate charge."
+subset --context "I was charged twice. Please refund the duplicate charge."
 ```
 
-Use `--device cuda` or `--device cpu` to select a device. `python -m sparset_decide` works as an alternative to the `sparset-decide` command.
+Use `--device cuda` or `--device cpu` to select a device. `python -m subset` works as an alternative to the `subset` command.
 
 ## Using another model
 
-Sparset Decide supports specific model architectures, **not every LLM or model size**.
+Subset supports specific model architectures, **not every LLM or model size**.
 
 | Model or setup | Current support |
 |---|---|
@@ -140,13 +140,13 @@ Sparset Decide supports specific model architectures, **not every LLM or model s
 For a compatible checkpoint, replace `organization/model-name` with its Hugging Face model ID:
 
 ```bash
-sparset-decide --model organization/model-name --interactive
+subset --model organization/model-name --interactive
 ```
 
 Or load a local Transformers model folder:
 
 ```bash
-sparset-decide --model ./my-model --local-files-only --interactive
+subset --model ./my-model --local-files-only --interactive
 ```
 
 In Python, pass the same ID or folder to `DecisionEngine.from_pretrained("organization/model-name", device="auto")`.
@@ -158,8 +158,8 @@ Changing `workflow.json` changes the task and allowed answers; it cannot add sup
 ## Use in Python
 
 ```python
-from sparset_decide import Workflow
-from sparset_decide.engine import DecisionEngine
+from subset import Workflow
+from subset.engine import DecisionEngine
 
 engine = DecisionEngine.from_pretrained(device="auto")
 workflow = Workflow.load("workflow.json")
